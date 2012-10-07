@@ -1,44 +1,32 @@
 #!/usr/bin/env php
 <?php
 
+require_once 'ThankYou.php';
+
 define('DBDIR',  $_SERVER['HOME'] . '/Dropbox/.thanks');
-
 $db_file = DBDIR . '/thanks.log';
-$week = array(
-  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-);
-
-$week_starts = "Thursday";
-
-
 
 if (!isset($argv[2]) && (!isset($argv[1]) || $argv[1] != "report")) {
   die("Usage: $argv[0] <name: reason>\n");
 }
 
-if ($argv[1] == 'report') {
+$db = new DBFile($db_file);
 
+if ($argv[1] == 'report') {
+  $report = new ThankYouReport($db);
+  $report->print_report();
 }
 else {
-  if (!writetodb($argv[1], $argv[2])) {
-    msg("There was a problem writing to the dbfile: $db_file.", 'ERROR');
+  try {
+    $ty = new ThankYou($argv[1], $argv[2]);
+    $db->write($ty);
+  }
+  catch(Exception $e) {
+    msg($e, 'error');
   }
 }
-
-function printReport() {
-
-}
-
-function writetodb($name, $reason) {
-  global $db_file;
-
-  $line = time();
-  $line .= "|$name|$reason";
-
-  return file_put_contents($db_file, $line, FILE_APPEND);
-}
-
 
 function msg($msg, $type = 'success') {
   printf("%-60s [%s]\n", $msg, $type);
 }
+
