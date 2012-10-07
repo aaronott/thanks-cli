@@ -14,3 +14,5 @@ Usage: ./thanks.php report
 NOTE: You will need to change the db dir settings but I like to keep mine in my 
 Dropbox so it is accessible from multiple machines and all machines can write
 thank you notes to it.
+
+TODO: Write more tests
