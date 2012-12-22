@@ -15,6 +15,8 @@ class ThankYouTest extends PHPUnit_Framework_TestCase
    *
    * Simply say thank you
    *
+   * @covers ThankYou::__construct
+   *
    * @test
    */
   public function testSimpleThankYou()

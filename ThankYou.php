@@ -12,12 +12,31 @@ class ThankYou {
   private $action;
   private $timestamp;
 
+  /**
+   * __construct
+   *
+   * Build the thankyou and set the vars.
+   *
+   * @param string
+   *   Name of the person you would like to thank
+   *
+   * @param string
+   *   This is the action the person did that was worthy of thanks.
+   *
+   * @param int
+   *   The timestamp to be used.
+   */
   public function __construct($person, $action, $timestamp = NULL) {
     $this->person = $person;
     $this->action = $action;
     $this->timestamp = $timestamp != NULL ? $timestamp : time();
   }
 
+  /**
+   * __toString() Magic function.
+   *
+   * This allows the object to be printed as a string.
+   */
   public function __toString() {
     return $this->timestamp . "|" . $this->person . "|" . $this->action;
   }
