@@ -2,8 +2,8 @@
 /**
  * @file
  *
- * This file contains the classes needed to run the ThankYou script. Currently 
- * all classes are in the same file. I might think about splitting them up in 
+ * This file contains the classes needed to run the ThankYou script. Currently
+ * all classes are in the same file. I might think about splitting them up in
  * the future but probably not.
  */
 
@@ -42,9 +42,26 @@ class ThankYou {
   }
 }
 
+/**
+ * Implements the read/write functionality to the DBFile.
+ *
+ * The DBFile is a simple flat file used to store the information.
+ */
 class DBFile {
+
+  /**
+   * @param string $filepath
+   *
+   * The path and file to store the data in.
+   */
   private $filepath;
 
+  /**
+   * __construct
+   *
+   * @param string $filepath
+   *   This is the path to the DBFile.
+   */
   public function __construct($filepath) {
 
     if (empty($filepath)) {
@@ -53,11 +70,27 @@ class DBFile {
     $this->filepath = $filepath;
   }
 
+  /**
+   * write
+   *
+   * Write the data to the DBFile
+   *
+   * @param string $line
+   *   String of data to be written to the DBFile
+   */
   public function write($line) {
     $line .= "\n";
     return file_put_contents($this->filepath, $line, FILE_APPEND);
   }
 
+  /**
+   * getReadItr
+   *
+   * This method currently returns an open read-only filehandle to the DBFile.
+   *
+   * @TODO: This needs to be changed to simply iterate over the file instead
+   * of handing that off.
+   */
   public function getReadItr() {
     if (!$this->_exists()) {
       throw new Exception('DBFile does not exist:' . $this->filepath);
@@ -71,10 +104,13 @@ class DBFile {
     return $fh;
   }
 
-  public function getPath() {
-    return $this->filepath;
-  }
-
+  /**
+   * _exists
+   *
+   * Check if this filepath exists or not.
+   *
+   * @return boolean
+   */
   private function _exists() {
     return file_exists($this->filepath);
   }
