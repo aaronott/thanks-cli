@@ -9,7 +9,6 @@ class ThankYouTest extends PHPUnit_Framework_TestCase
     $this->thankyou = new ThankYou('TestPerson', 'TestAction');
   }
 
-
   /**
    * Tests ThankYou
    *
