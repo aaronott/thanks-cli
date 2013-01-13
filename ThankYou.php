@@ -122,10 +122,11 @@ class DBFile {
 class ThankYouReport {
   private $dbobj;
 
-  private $date_format = "F j, Y";
+  private $date_format;
 
-  public function __construct(DBFile $dbobj) {
+  public function __construct(DBFile $dbobj, $date_format = "F j, Y") {
     $this->dbobj = $dbobj;
+    $this->date_format = $date_format;
   }
 
   public function print_report() {
